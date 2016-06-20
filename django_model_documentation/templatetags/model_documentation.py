@@ -22,15 +22,16 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from __future__ import unicode_literals
+
 from django import template
 from django.db import connection
 from django.utils.safestring import mark_safe
-from django_model_documentation.management.commands import get_comment
-from django_model_documentation.templatetags import render_default, render_constraints
 
+from django_model_documentation.management.commands import get_comment
+from django_model_documentation.templatetags import render_default, \
+    render_constraints
 
 __author__ = 'Kelson da Costa Medeiros <kelsoncm@gmail.com>'
-
 
 register = template.Library()
 

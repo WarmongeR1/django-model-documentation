@@ -21,10 +21,11 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
-from django.db import connection
 from django.core.management.base import BaseCommand
-from django_model_documentation.management.commands import get_models_to_doc, get_comment, normalize_comment
+from django.db import connection
 
+from django_model_documentation.management.commands import get_models_to_doc, \
+    get_comment, normalize_comment
 
 __author__ = 'Kelson da Costa Medeiros <kelsoncm@gmail.com>'
 
@@ -52,26 +53,30 @@ class Command(BaseCommand):
                 self.write_table_comment(meta)
                 self.write_fields_comment(meta)
             except Exception as e:
-                print (e)
+                print(e)
 
     def execute_sql(self, sql):
         if self.verbose:
-            print (sql)
+            print(sql)
         if not self.noexecsql:
             self.cursor.execute(sql)
 
     def write_table_comment(self, meta):
         try:
-            comment = normalize_comment(get_comment(meta, '', meta.verbose_name))
-            self.execute_sql(u"COMMENT ON TABLE %s IS '%s'" % (meta.db_table, comment))
+            comment = normalize_comment(
+                get_comment(meta, '', meta.verbose_name))
+            self.execute_sql(
+                u"COMMENT ON TABLE %s IS '%s'" % (meta.db_table, comment))
         except Exception as e:
-            print (e)
+            print(e)
 
     def write_fields_comment(self, meta):
         for field in meta.concrete_fields:
             try:
                 if str(meta.model) == str(field.model):
-                    comment = normalize_comment(get_comment(meta, field.column, field.verbose_name))
-                    self.execute_sql(u"COMMENT ON COLUMN %s.%s IS '%s'" % (meta.db_table, field.column, comment))
+                    comment = normalize_comment(
+                        get_comment(meta, field.column, field.verbose_name))
+                    self.execute_sql(u"COMMENT ON COLUMN %s.%s IS '%s'" % (
+                        meta.db_table, field.column, comment))
             except Exception as e:
-                print (e)
+                print(e)

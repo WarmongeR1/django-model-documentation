@@ -22,6 +22,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from __future__ import unicode_literals
+
 from django.db import connection, models
 
 __author__ = 'Kelson da Costa Medeiros <kelsoncm@gmail.com>'
@@ -63,12 +64,13 @@ def render_constraints(field):
             result += u'NB '
 
     if 'remote_field' in dir(field) and field.remote_field:
-        result += u'FK: %s (%s)' % (field.remote_field.model._meta.db_table, field.remote_field.model._meta.pk.column)
+        result += u'FK: %s (%s)' % (field.remote_field.model._meta.db_table,
+                                    field.remote_field.model._meta.pk.column)
 
     if field.choices:
         result = u'<dt>Check: </dt><dd><table><thead><tr><th>Valor</th><th>Descrição</th></thead><tbody>'
         for item in field.choices:
-            result += u'<tr><th>%s</th><td>%s</td><tr>' % (item[0], item[1], )
+            result += u'<tr><th>%s</th><td>%s</td><tr>' % (item[0], item[1],)
         result += u'</tbody></table></dd>'
 
     params = field.db_parameters(connection)

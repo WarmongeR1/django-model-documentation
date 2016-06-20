@@ -30,14 +30,44 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 <head>
     {% block head %}
     <style>
-        label {margin-right: 10px; font-weight: 400; }
-        td, th {border: 1px solid #000; margin: 0; padding: 0 5px; }
-        th {background-color: darkgray; }
-        table {border-spacing: 0; border-collapse: collapse; }
-        details[open] {padding-bottom: 20px; }
-        tbody th {text-align: left; }
-        dt {float: left; clear: left; margin-right: 5px; font-weight: bold; }
-        dd {margin-left: 0px; }
+        label {
+            margin-right: 10px;
+            font-weight: 400;
+        }
+
+        td, th {
+            border: 1px solid #000;
+            margin: 0;
+            padding: 0 5px;
+        }
+
+        th {
+            background-color: darkgray;
+        }
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        details[open] {
+            padding-bottom: 20px;
+        }
+
+        tbody th {
+            text-align: left;
+        }
+
+        dt {
+            float: left;
+            clear: left;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        dd {
+            margin-left: 0px;
+        }
     </style>
     {% endblock head %}
 </head>
@@ -46,12 +76,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 <header>
     <h1>{% trans "Legends" %}</h1>
     <dl class='legends'>
-        <dt>{% trans "PK" %}</dt><dd>{% trans "Primary key" %}</dd>
-        <dt>{% trans "UK" %}</dt><dd>{% trans "Unique key" %}</dd>
-        <dt>{% trans "AK" %}</dt><dd>{% trans "Alternative key" %}</dd>
-        <dt>{% trans "FK" %}</dt><dd>{% trans "Foreign key" %}</dd>
-        <dt>{% trans "AI" %}</dt><dd>{% trans "Autoincrement" %}</dd>
-        <dt>{% trans "NB" %}</dt><dd>{% trans "Blank not allowed" %}</dd>
+        <dt>{% trans "PK" %}</dt>
+        <dd>{% trans "Primary key" %}</dd>
+        <dt>{% trans "UK" %}</dt>
+        <dd>{% trans "Unique key" %}</dd>
+        <dt>{% trans "AK" %}</dt>
+        <dd>{% trans "Alternative key" %}</dd>
+        <dt>{% trans "FK" %}</dt>
+        <dd>{% trans "Foreign key" %}</dd>
+        <dt>{% trans "AI" %}</dt>
+        <dd>{% trans "Autoincrement" %}</dd>
+        <dt>{% trans "NB" %}</dt>
+        <dd>{% trans "Blank not allowed" %}</dd>
     </dl>
 </header>
 {% endblock header %}
@@ -66,11 +102,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <summary>{{ meta.db_table }}</summary>
             <h1>{% trans "Table name" %} {{ meta.db_table }}</h1>
             <dl>
-                <dt>{% trans "Table comment" %}</dt><dd>{% table_comment meta %}</dd>
-                <dt>{% trans "User knows as" %}</dt><dd>{% table_verbose_name meta %}</dd>
+                <dt>{% trans "Table comment" %}</dt>
+                <dd>{% table_comment meta %}</dd>
+                <dt>{% trans "User knows as" %}</dt>
+                <dd>{% table_verbose_name meta %}</dd>
                 {% if meta.ordering %}
                 <dt>{% trans "Usually ordered by" %}</dt>
-                <dd><ul>{% for fieldname in meta.ordering %}<li>{{ fieldname }}</li>{% endfor %}</ul></dd>
+                <dd>
+                    <ul>{% for fieldname in meta.ordering %}
+                        <li>{{ fieldname }}</li>
+                        {% endfor %}
+                    </ul>
+                </dd>
                 {% endif %}
             </dl>
             {% endblock table_info %}
@@ -89,17 +132,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 </thead>
                 <tbody>
                 {% for field in meta.concrete_fields %}
-                    {% block field %}
-                    <tr>
-                        <th>{{ field.get_attname }}</th>
-                        <td>{% field_type field %}</td>
-                        <td>{{ field.null }}</td>
-                        <td>{% field_default field %}</td>
-                        <td>{% field_constraints field %}</td>
-                        <td>{% field_comment meta field %}</td>
-                        <td>{{ field.verbose_name }}</td>
-                    </tr>
-                    {% endblock field %}
+                {% block field %}
+                <tr>
+                    <th>{{ field.get_attname }}</th>
+                    <td>{% field_type field %}</td>
+                    <td>{{ field.null }}</td>
+                    <td>{% field_default field %}</td>
+                    <td>{% field_constraints field %}</td>
+                    <td>{% field_comment meta field %}</td>
+                    <td>{{ field.verbose_name }}</td>
+                </tr>
+                {% endblock field %}
                 {% endfor %}
                 </tbody>
             </table>
@@ -110,4 +153,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     {% endblock table %}
 </main>
 {% endblock main %}
-</body></html>
+</body>
+</html>

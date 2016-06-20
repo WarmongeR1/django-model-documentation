@@ -23,7 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from importlib import import_module
 
-
 __author__ = 'Kelson da Costa Medeiros <kelsoncm@gmail.com>'
 
 

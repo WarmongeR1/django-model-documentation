@@ -22,10 +22,10 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from importlib import import_module
+
+from django.apps.registry import Apps
 from django.conf import settings
 from django.db.models.base import ModelBase
-from django.apps.registry import Apps
-
 
 __author__ = 'Kelson da Costa Medeiros <kelsoncm@gmail.com>'
 
@@ -43,7 +43,8 @@ def get_models():
 
         for attr_name in dir(app_config.models_module):
             attr = getattr(app_config.models_module, attr_name)
-            if isinstance(attr, ModelBase) and attr.__module__ == '%s.models' % app_config.module.__name__:
+            if isinstance(attr,
+                          ModelBase) and attr.__module__ == '%s.models' % app_config.module.__name__:
                 result.append(attr)
     return result
 
@@ -57,7 +58,8 @@ def get_models_to_doc():
 
 
 def skip_model(meta):
-    return meta.abstract or (meta.db_table == 'auth_user' and 'AUTH_USER_MODEL' in dir(settings))
+    return meta.abstract or (
+    meta.db_table == 'auth_user' and 'AUTH_USER_MODEL' in dir(settings))
 
 
 def normalize_comment(clear_comment):
@@ -69,7 +71,8 @@ def get_comment(meta, name, verbose_name):
         return u'%s' % meta.comments[name]
     elif 'id' == name:
         if 'DJANGO_COMMENT_DOCUMENTATION_DEFAULT_ID_COMMENT' in dir(settings):
-            if callable(settings.DJANGO_COMMENT_DOCUMENTATION_DEFAULT_ID_COMMENT):
+            if callable(
+                    settings.DJANGO_COMMENT_DOCUMENTATION_DEFAULT_ID_COMMENT):
                 return u'%s' % settings.DJANGO_COMMENT_DOCUMENTATION_DEFAULT_ID_COMMENT()
             else:
                 return u'%s' % settings.DJANGO_COMMENT_DOCUMENTATION_DEFAULT_ID_COMMENT

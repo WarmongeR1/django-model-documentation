@@ -22,10 +22,11 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from __future__ import unicode_literals
+
 from django.core.management.base import BaseCommand
-from django_model_documentation.management.commands import get_metas
 from django.template import loader
 
+from django_model_documentation.management.commands import get_metas
 
 __author__ = 'Kelson da Costa Medeiros <kelsoncm@gmail.com>'
 
@@ -40,4 +41,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         metas = get_metas()
-        print loader.render_to_string('django_model_documentation/documentation_local.html', locals())
+        print(loader.render_to_string(
+            'django_model_documentation/documentation_local.html', locals()))
